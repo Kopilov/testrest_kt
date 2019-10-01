@@ -15,6 +15,14 @@ import javax.ws.rs.core.Response
 @Consumes("application/json")
 class JsonbResource {
 
+
+    @Path("one")
+    @GET
+    @Produces("application/json")
+    fun getCat(): Cat {
+        return cats[Math.round(Math.random() * 3).toInt()]
+    }
+
     val all: List<Cat>
         @Path("all")
         @GET
@@ -22,34 +30,20 @@ class JsonbResource {
         get() = cats
 
 
-    //    @Path("one")
-    //    @GET
-    //    @Produces("application/json")
-    //    public Cat getCat() {
-    //        return cats.get((int) (Math.round(Math.random() * 3)));
-    //    }
-    //
-    //    @Path("all")
-    //    @GET
-    //    @Produces("application/json")
-    //    public List<Cat> getAll() {
-    //        return cats;
-    //    }
-    //
-    //    @Path("schroedinger")
-    //    @GET
-    //    public String check() {
-    //        return "The cat is 9x alive!";
-    //    }
-    //
-    //    @Path("add")
-    //    @POST
-    //    public Response createCat(Cat cat) {
-    //        System.out.println("Creating cat.");
-    //        cats.add(cat);
-    //        return Response.ok().build();
-    //    }
-    //
+    @Path("schroedinger")
+    @GET
+    fun check(): String {
+        return "The cat is 9x alive!"
+    }
+
+    @Path("add")
+    @POST
+    fun createCat(cat: Cat): Response {
+        println("Creating cat.")
+        cats.add(cat)
+        return Response.ok().build()
+    }
+
     @Path("addAll")
     @POST
     fun createMultiple(addedCats: List<Cat>): Response {
